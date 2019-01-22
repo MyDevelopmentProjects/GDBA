@@ -1,0 +1,302 @@
+<div class="padding">
+    <div class="box">
+        <div class="table-responsive">
+            <imperio-search-input></imperio-search-input>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th imperio-sortable-by="city">სახელი</th>
+                    <th imperio-sortable-by="city">ქალაქი</th>
+                    <th imperio-sortable-by="roomCount">ოთახი</th>
+                    <th imperio-sortable-by="starCount">ვარსკვლავი</th>
+                    <th imperio-sortable-by="adultAmount">მოზარდი</th>
+                    <th imperio-sortable-by="childrenAmount">ბავშვი</th>
+                    <th imperio-sortable-by="dateCreated">შეიქმნა</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in data.results">
+                    <td>{{item.description.titleEN}}</td>
+                    <td>{{item.city.titles.titleEN}}</td>
+                    <td>{{item.roomCount}}</td>
+                    <td>{{item.starCount}}</td>
+                    <td>{{item.adultAmount}}</td>
+                    <td>{{item.childrenAmount}}</td>
+                    <td ng-bind="item.dateCreated | date:'dd-MM-yyyy'"></td>
+                    <td>
+                        <i class="fa fa-fw fa-pencil" ng-click="showAddEdit(item)"></i>
+                        <i class="fa fa-fw fa-trash-o" ng-model="item"
+                           ng-popover-confirm="delete({{item.id}})"
+                           data-title="წავშალო ჩანაწერი?">
+                        </i>
+                    </td>
+                </tr>
+                <tr ng-if="!data.results.length" class="text-center">
+                    <td colspan="100" class="warning">ჩანაწერები ვერ მოიძებნა</td>
+                </tr>
+                </tbody>
+                <tfoot class="hide-if-no-paging">
+                <tr>
+                    <td colspan="50" class="text-center">
+                        <imperio-pager></imperio-pager>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <imperio-fab></imperio-fab>
+</div>
+
+<div id="showAddEdit" class="modal black-overlay" data-backdrop="false">
+    <div class="modal-dialog modal-lg" ng-form="addEditForm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">სასტუმროს {{init.action}}</h5>
+            </div>
+            <div class="modal-body p-lg">
+                <form role="form" name="hotelForm">
+                    <fieldset>
+                        <div class="row">
+                            <div class="col col-lg-12">
+                                <div class="b-b b-primary nav-active-primary">
+                                    <ul class="nav nav-tabs">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" href="" data-toggle="tab"
+                                               data-target="#tab-english" aria-expanded="true">English</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="" data-toggle="tab" data-target="#tab-georgian"
+                                               aria-expanded="false">ქართული</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="" data-toggle="tab" data-target="#tab-attr"
+                                               aria-expanded="false">Attributes</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="" data-toggle="tab" data-target="#tab-gallery"
+                                               aria-expanded="false">Gallery</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="" data-toggle="tab" data-target="#tab-gmap"
+                                               aria-expanded="false">Google Map</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tab-content p-a m-b-md">
+                                    <div class="tab-pane nav-active-primary active" id="tab-english"
+                                         aria-expanded="true">
+                                        <section>
+                                            <label>ქალაქი</label>
+                                            <select class="form-control"
+                                                    ng-model="object.city.id"
+                                                    ng-options="item.id as item.titles.titleEN for item in city_list"
+                                                    required>
+                                                <option value='' selected="selected">- აირჩიეთ ქალაქი -</option>
+                                            </select>
+                                        </section>
+                                        <br>
+                                        <section>
+                                            <label>სასტუმროს სახელი</label>
+                                            <input class="form-control" type="text" placeholder="დასახელება ინგლისურად"
+                                                   ng-model="object.description.titleEN"
+                                                   required>
+                                        </section>
+                                        <br>
+                                        <section>
+                                            <label>აღწერა ინგლისურად</label>
+                                            <summernote config="options"
+                                                        on-image-upload="imageUploadEN(files, editor)"
+                                                        editable="editableEN"
+                                                        ng-model="object.description.descriptionEN"></summernote>
+                                        </section>
+                                    </div>
+                                    <div class="tab-pane animated fadeIn nav-active-primary text-muted" id="tab-georgian"
+                                         aria-expanded="false">
+                                        <section>
+                                            <label>ქალაქი</label>
+                                            <select class="form-control"
+                                                    ng-model="object.city.id"
+                                                    ng-options="item.id as item.titles.titleRU for item in city_list"
+                                                    required>
+                                                <option value='' selected="selected">- აირჩიეთ ქალაქი -</option>
+                                            </select>
+                                        </section>
+                                        <br>
+                                        <section>
+                                            <label>სასტუმროს სახელი</label>
+                                            <input class="form-control" type="text" placeholder="დასახელება ქართულად"
+                                                   ng-model="object.description.titleRU"
+                                                   required>
+                                        </section>
+                                        <br>
+                                        <section>
+                                            <label>აღწერა ქართულად</label>
+                                            <summernote config="options"
+                                                        on-image-upload="imageUploadRU(files, editor)"
+                                                        editable="editableRU"
+                                                        ng-model="object.description.descriptionRU"></summernote>
+                                        </section>
+                                    </div>
+                                    <div class="tab-pane animated fadeIn nav-active-primary text-muted" id="tab-attr"
+                                         aria-expanded="false">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <section>
+                                                    <label>ვარსკ. რაოდენობა</label>
+                                                    <select class="form-control"
+                                                            ng-model="object.starCount"
+                                                            ng-options="item.id as item.name for item in starList"
+                                                            required>
+                                                        <option value='' selected="selected">- აირჩიეთ -</option>
+                                                    </select>
+                                                </section>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <section>
+                                                    <label>ოთახ. რაოდ</label>
+                                                    <select class="form-control"
+                                                            ng-model="object.roomCount"
+                                                            ng-options="item.id as item.name for item in roomList"
+                                                            required>
+                                                        <option value='' selected="selected">- აირჩიეთ -</option>
+                                                    </select>
+                                                </section>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <section>
+                                                    <label>დიდი. რაოდ</label>
+                                                    <select class="form-control"
+                                                            ng-model="object.adultAmount"
+                                                            ng-options="item.id as item.name for item in adultList"
+                                                            required>
+                                                        <option value='' selected="selected">- აირჩიეთ -</option>
+                                                    </select>
+                                                </section>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <section>
+                                                    <label>ბავშ. რაოდ</label>
+                                                    <select class="form-control"
+                                                            ng-model="object.childrenAmount"
+                                                            ng-options="item.id as item.name for item in childList"
+                                                            required>
+                                                        <option value='' selected="selected">- აირჩიეთ -</option>
+                                                    </select>
+                                                </section>
+                                            </div>
+                                            <div class="col-sm-4" style="text-align: left;padding-top: 20px">
+                                                <p><label class="md-check"><input type="checkbox"
+                                                                                  ng-model="object.att.ethernet"
+                                                                                  ng-init="checked=false"><i
+                                                        class="indigo"></i> ინტერნეტი</label></p>
+                                                <p><label class="md-check"><input type="checkbox"
+                                                                                  ng-model="object.att.restourant"
+                                                                                  ng-init="checked=false"><i
+                                                        class="indigo"></i> რესტორანი</label></p>
+                                                <p><label class="md-check"><input type="checkbox"
+                                                                                  ng-model="object.att.kitchen"
+                                                                                  ng-init="checked=false"><i
+                                                        class="indigo"></i> სამზარეულო</label></p>
+                                                <p><label class="md-check"><input type="checkbox"
+                                                                                  ng-model="object.att.hotTub"
+                                                                                  ng-init="checked=false"><i
+                                                        class="indigo"></i> ცხელი აბაზანა</label></p>
+                                                <p><label class="md-check"><input type="checkbox"
+                                                                                  ng-model="object.att.playPlace"
+                                                                                  ng-init="checked=false"><i
+                                                        class="indigo"></i> გასართობი ადგილი</label></p>
+                                                <p><label class="md-check"><input type="checkbox"
+                                                                                  ng-model="object.att.swimmingPool"
+                                                                                  ng-init="checked=false"><i
+                                                        class="indigo"></i> საცურაო აუზი</label></p>
+                                            </div>
+                                            <div class="col-sm-4" style="text-align: left;padding-top: 20px">
+                                                <p><label class="md-check"><input type="checkbox"
+                                                                                  ng-model="object.att.enthertaiment"
+                                                                                  ng-init="checked=false"><i
+                                                        class="indigo"></i> გართობა</label></p>
+                                                <p><label class="md-check"><input type="checkbox"
+                                                                                  ng-model="object.att.parking"
+                                                                                  ng-init="checked=false"><i
+                                                        class="indigo"></i> პარკინგი</label></p>
+                                                <p><label class="md-check"><input type="checkbox"
+                                                                                  ng-model="object.att.petAllowed"
+                                                                                  ng-init="checked=false"><i
+                                                        class="indigo"></i> პირადი ცხოველი</label></p>
+                                                <p><label class="md-check"><input type="checkbox"
+                                                                                  ng-model="object.att.gym"
+                                                                                  ng-init="checked=false"><i
+                                                        class="indigo"></i> ტრენაჟორები</label></p>
+                                                <p><label class="md-check"><input type="checkbox"
+                                                                                  ng-model="object.att.doorMan"
+                                                                                  ng-init="checked=false"><i
+                                                        class="indigo"></i> კარის კაცი</label></p>
+                                                <p><label class="md-check"><input type="checkbox"
+                                                                                  ng-model="object.att.television"
+                                                                                  ng-init="checked=false"><i
+                                                        class="indigo"></i> ტელევიზორი</label></p>
+                                            </div>
+                                            <div class="col-sm-4" style="text-align: left;padding-top: 20px">
+                                                <p><label class="md-check"><input type="checkbox"
+                                                                                  ng-model="object.att.conferenceRoom"
+                                                                                  ng-init="checked=false"><i
+                                                        class="indigo"></i> საკონფერენციო ოთახი</label></p>
+                                                <p><label class="md-check"><input type="checkbox"
+                                                                                  ng-model="object.att.bar"
+                                                                                  ng-init="checked=false"><i
+                                                        class="indigo"></i> ბარი</label></p>
+                                                <p><label class="md-check"><input type="checkbox"
+                                                                                  ng-model="object.att.spaServices"
+                                                                                  ng-init="checked=false"><i
+                                                        class="indigo"></i> სპა სერვისები</label></p>
+                                                <p><label class="md-check"><input type="checkbox"
+                                                                                  ng-model="object.att.handicap"
+                                                                                  ng-init="checked=false"><i
+                                                        class="indigo"></i> ჰანდიკაპი</label></p>
+                                                <p><label class="md-check"><input type="checkbox"
+                                                                                  ng-model="object.att.bikeRental"
+                                                                                  ng-init="checked=false"><i
+                                                        class="indigo"></i> გაქირავებადი ველოსიპედი</label></p>
+                                                <p><label class="md-check"><input type="checkbox"
+                                                                                  ng-model="object.att.secure"
+                                                                                  ng-init="checked=false"><i
+                                                        class="indigo"></i> დაცვა</label></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane animated fadeIn text-muted" id="tab-gallery"
+                                         aria-expanded="false">
+                                        <div class="danger alert">
+                                            <span class="">რეკომენდირებული სურათის გაფართოება: 724x448</span>
+                                        </div>
+                                        <imperio-file-uploader-input-multiple></imperio-file-uploader-input-multiple>
+                                    </div>
+                                    <div class="tab-pane animated fadeIn text-muted" id="tab-gmap"
+                                         aria-expanded="false">
+                                        <div id="myMap" style="position:relative; height:100%; min-height:320px"
+                                             ui-map="myMap"
+                                             ui-event="{'map-click': 'addMarker($event, $params)'}"
+                                             ui-options="mapOptions">
+                                        </div>
+                                        <button class="btn btn-primary" ng-click="clearMarkers()">მარკერის ამოშლა
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn dark-white p-x-md" data-dismiss="modal">დახურვა</button>
+                <button type="button" class="btn danger p-x-md" ng-disabled="addEditForm.$invalid"
+                        ng-click="save()">შენახვა
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

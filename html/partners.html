@@ -1,0 +1,149 @@
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8" />
+        <title>GDBA</title>
+        <!--<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1"/>-->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
+        <meta property="Copyright" content="Copyright GDBA 2017. All Rights Reserved."/>
+
+        <link rel="stylesheet" href="assets/css/normalize.css" />
+        <link rel="stylesheet" href="assets/css/fonts.css" />
+        <link rel="stylesheet" href="assets/css/layout.css" />
+    </head>
+    <body>
+        <!-- Header -->
+        <header class="header">
+            <div class="container container--full-h">
+                <div class="header-wrap">
+                    <div class="header-logo">
+                        <a href="#" class="logo-wrap">
+                            <span class="logo-wrap__img"></span>
+                            <span class="logo-wrap__txt">gdba</span>
+                        </a>
+                    </div>
+                    <div class="header-navigation">
+                        <ul class="nav-menu">
+                            <li class="nav-menu__item">
+                                <a href="#">home</a>
+                            </li>
+                            <li class="nav-menu__item active">
+                                <a href="#">about</a>
+                            </li>
+                            <li class="nav-menu__item">
+                                <a href="#">news</a>
+                            </li>
+                            <li class="nav-menu__item">
+                                <a href="#">members</a>
+                            </li>
+                            <li class="nav-menu__item">
+                                <a href="#">contact</a>
+                            </li>
+
+                            <li class="nav-menu__item nav-menu__item--right active">
+                                <a href="#">en</a>
+                            </li>
+                            <li class="nav-menu__item nav-menu__item--right">
+                                <a href="#">ge</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="section section--dynamic" style="background: #c61300" id="partners-rotator">
+          <div class="container">
+            <div class="section__title section__title--sm-pad section__title--big">
+              <h1>Partners</h1>
+              <ul class="breadcrumbs">
+                  <li><a href="#">home page</a></li>
+                  <li><a href="#">partners</a></li>
+              </ul>
+            </div>
+            <div class="section__actions">
+                <div class="carousel-actions">
+                    <div class="lr-controls">
+                        <i data-back class="icon icon-chevr-left"></i>
+                        <i data-next class="icon icon-chevr-right active"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="section__body">
+              <div class="banner-rotator">
+                <div class="banner-rotator__slide banner-rotator__slide--show banner-rotator__slide--fadein" data-color="c61300">
+                  <img class="partner__logo partner__logo--big" src="assets/images/partners/cocacola.png" alt="cocacola" />
+                </div>
+                <div class="banner-rotator__slide" data-color="db7093">
+                  <img class="partner__logo partner__logo--big" src="assets/images/partners/moduleo.png" alt="moduleo" />
+                </div>
+                <div class="banner-rotator__slide" data-color="acadee">
+                  <img class="partner__logo partner__logo--big" src="assets/images/partners/united-utilities.png" alt="uu" />
+                </div>
+              </div>
+              <div class="st-controls">
+                  <ul class="bullet-list bullet-list--overlay">
+                  </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- News section -->
+        <section class="section section--separator">
+            <div class="container">
+                <div class="section__body">
+                    <div class="grid grid--wrapping grid--threes grid--spaced news-listing">
+                        <div class="grid__cell">
+                          <div class="partner partner--grey" data-title="united utilities">
+                              <img class="partner__logo" src="assets/images/partners/united-utilities.png" alt="moduleo" />
+                          </div>
+                        </div>
+                        <div class="grid__cell">
+                          <div class="partner partner--grey" data-title="united utilities">
+                              <img class="partner__logo" src="assets/images/partners/united-utilities.png" alt="moduleo" />
+                          </div>
+                        </div>
+                        <div class="grid__cell">
+                          <div class="partner partner--grey" data-title="united utilities">
+                              <img class="partner__logo" src="assets/images/partners/united-utilities.png" alt="moduleo" />
+                          </div>
+                        </div>
+                        <div class="grid__cell">
+                          <div class="partner partner--grey" data-title="united utilities">
+                              <img class="partner__logo" src="assets/images/partners/united-utilities.png" alt="moduleo" />
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-wrap">
+                    <div class="footer__links">
+                        <ul class="footer__menu">
+                            <li><a href="#">home</a></li>
+                            <li><a href="#">about</a></li>
+                            <li><a href="#">news</a></li>
+                            <li><a href="#">members</a></li>
+                            <li><a href="#">contact</a></li>
+                        </ul>
+                        <p class="footer__text">&copy; 2017 GDBA. All Rights reserved</p>
+                    </div>
+                    <div class="footer__soc">
+                        <a href="#" class="soc-icon soc-icon--fb"></a>
+                        <a href="#" class="soc-icon soc-icon--yt"></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script src="assets/js/slider.js"></script>
+
+        <script>
+          new ColorfulSlider(document.querySelector('#partners-rotator'));
+        </script>
+    </body>
+</html>

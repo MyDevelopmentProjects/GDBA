@@ -1,0 +1,144 @@
+<div class="padding">
+    <div class="box">
+        <div class="table-responsive">
+            <imperio-search-input></imperio-search-input>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th imperio-sortable-by="id">id</th>
+                    <th></th>
+                    <th imperio-sortable-by="details.titleEN">სახელი EN</th>
+                    <th imperio-sortable-by="details.titleRU">სახელი GE</th>
+                    <th imperio-sortable-by="dateCreated">შეიქმნა</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in data.results">
+                    <td>{{item.id}}</td>
+                    <td><img ng-src="uploads/{{item.imageURL}}" height="60"></td>
+                    <td>{{item.details.titleEN}}</td>
+                    <td>{{item.details.titleRU}}</td>
+                    <td ng-bind="item.dateCreated | date:'dd-MM-yyyy hh:mm'"></td>
+                    <td>
+                        <i class="fa fa-fw fa-pencil" ng-click="showAddEdit(item)"></i>
+                        <i class="fa fa-fw fa-trash-o" ng-model="item"
+                           ng-popover-confirm="delete({{item.id}})"
+                           data-title="წავშალო ჩანაწერი?">
+                        </i>
+                    </td>
+                </tr>
+                <tr ng-if="!data.results.length" class="text-center">
+                    <td colspan="100" class="warning">ჩანაწერები ვერ მოიძებნა</td>
+                </tr>
+                </tbody>
+                <tfoot class="hide-if-no-paging">
+                <tr>
+                    <td colspan="50" class="text-center">
+                        <imperio-pager></imperio-pager>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <imperio-fab></imperio-fab>
+</div>
+
+<div id="showAddEdit" class="modal black-overlay" data-backdrop="false">
+    <div class="modal-dialog modal-lg" ng-form="addEditForm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">სიახლის {{init.action}}</h5>
+            </div>
+            <div class="modal-body p-lg">
+                <form role="form" name="hotelForm">
+                    <fieldset>
+                        <div class="row">
+                            <div class="col col-lg-12">
+                                <div class="b-b b-primary nav-active-primary">
+                                    <ul class="nav nav-tabs">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" href="" data-toggle="tab"
+                                               data-target="#tab-english" aria-expanded="true">English</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="" data-toggle="tab" data-target="#tab-georgian"
+                                               aria-expanded="false">ქართული</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="" data-toggle="tab" data-target="#tab-gallery"
+                                               aria-expanded="false">ფოტო</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tab-content p-a m-b-md">
+                                    <div class="tab-pane nav-active-primary active" id="tab-english"
+                                         aria-expanded="true">
+                                        <section>
+                                            <label>დასახელება ინგლისურად</label>
+                                            <input class="form-control" type="text" placeholder="დასახელება ინგლისურად"
+                                                   ng-model="object.details.titleEN"
+                                                   required>
+                                        </section>
+                                        <br>
+                                        <section>
+                                            <label>აღწერა ინგლისურად</label>
+                                            <summernote config="options"
+                                                        on-image-upload="imageUploadEN(files, editor)"
+                                                        editable="editableEN"
+                                                        ng-model="object.details.descriptionEN" required></summernote>
+                                        </section>
+                                    </div>
+                                    <div class="tab-pane animated fadeIn nav-active-primary text-muted"
+                                         id="tab-georgian"
+                                         aria-expanded="false">
+                                        <section>
+                                            <label>დასახელება ქართულად</label>
+                                            <input class="form-control" type="text" placeholder="დასახელება ქართულად"
+                                                   ng-model="object.details.titleRU"
+                                                   required>
+                                        </section>
+                                        <br>
+                                        <section>
+                                            <label>აღწერა ინგლისურად</label>
+                                            <summernote config="options"
+                                                        on-image-upload="imageUploadRU(files, editor)"
+                                                        editable="editableRU"
+                                                        ng-model="object.details.descriptionRU" required></summernote>
+                                        </section>
+                                    </div>
+                                    <div class="tab-pane animated fadeIn text-muted" id="tab-gallery"
+                                         aria-expanded="false">
+                                        <div class="danger alert">
+                                            <span class="">რეკომენდირებული სურათის გაფართოება: 724x448</span>
+                                        </div>
+                                        <img ng-if="object.imageURL"
+                                             ng-src="uploads/{{object.imageURL}}"
+                                             height="200">
+                                        <imperio-file-uploader-input></imperio-file-uploader-input>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <p style="float: left;margin-left: 30px;margin-top: -5px;">
+                    <label class="md-check">
+                        <input type="checkbox"
+                               ng-model="object.enabled"
+                               ng-init="checked=false">
+                        <i class="indigo"></i> ჩართულია</label>
+                </p>
+                <button type="button" class="btn dark-white p-x-md" data-dismiss="modal">დახურვა</button>
+                <button type="button" class="btn danger p-x-md" ng-disabled="addEditForm.$invalid"
+                        ng-click="save()">შენახვა
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

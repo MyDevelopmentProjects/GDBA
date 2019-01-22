@@ -1,0 +1,182 @@
+<div class="padding">
+    <fieldset ng-repeat="key in keys">
+        <legend>{{getTitle(key)}}</legend>
+        <div class="col-sm-2" ng-repeat="item in data[key]">
+            <div class="box p-a-xs">
+                <div ng-click="showAddEdit(item)" style="cursor:pointer">
+                    <div ng-if="!item.video" class="slider-image" style="background-image: url(/uploads/{{item.image}})"></div>
+                    <iframe ng-if="item.video" width="100%" height="100" style="height: 100px;" ng-src="{{parseURI(item.image)}}"
+                            frameborder="0"></iframe>
+                </div>
+                <div class="p-a-sm">
+                    <div class="text-ellipsis">
+                        {{item.captions.captionOneEN}}
+                        <div class="pull-right">
+                        <span class="label red" style="cursor:pointer" ng-click="showAddEdit(item)"><i
+                                class="fa fa-pencil"></i></span>
+                            <span class="label red" style="cursor:pointer" ng-click="delete({{item.id}})"><i
+                                    class="fa fa-trash-o"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <imperio-fab></imperio-fab>
+</div>
+<div id="showAddEdit" class="modal black-overlay" data-backdrop="false">
+    <div class="modal-dialog modal-lg" ng-form="addEditForm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{init.action}}</h5>
+            </div>
+            <div class="modal-body p-lg">
+                <div class="b-b b-primary nav-active-primary">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="" data-toggle="tab"
+                               data-target="#tab-media" aria-expanded="true">Media</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="" data-toggle="tab"
+                               data-target="#tab-english" aria-expanded="true">English</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="" data-toggle="tab" data-target="#tab-georgian"
+                               aria-expanded="false">ქართული</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="" data-toggle="tab" data-target="#tab-learn-more"
+                               aria-expanded="false">მეტი</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-content p-a m-b-md">
+                    <div class="tab-pane nav-active-primary active" id="tab-media"
+                         aria-expanded="true">
+
+                        <section>
+                            <div class="form-group">
+                                <label>აირჩიეთ ფონის ფერი: </label>
+                                <input class="form-control rounded" colorpicker type="text" name="bgColor"
+                                       placeholder="აირჩიეთ ფერი"
+                                       style="background-color:{{object.bgColor}}"
+                                       ng-model="object.bgColor"/>
+                            </div>
+                        </section>
+
+                        <div ng-if="!object.video">
+                            <div class="danger alert">
+                                <span class="">რეკომენდირებული სურათის გაფართოება: 1920x1080</span>
+                            </div>
+                            <fieldset ng-if="object.image != null">
+                                <hr>
+                                <div class="row">
+                                    <section class="col col-md-12">
+                                        <img checkImage ng-src="/uploads/{{object.image}}"
+                                             class="img-responsive img-thumbnail" style="width:204px;height:auto;">
+                                    </section>
+                                </div>
+                                <hr>
+                            </fieldset>
+                            <section>
+                                <imperio-file-uploader-input></imperio-file-uploader-input>
+                            </section>
+                        </div>
+                        <div ng-if="object.video">
+                            <fieldset>
+                                <input type="text" class="form-control rounded" ng-model="object.image"
+                                       placeholder="YOUTUBE URL"/>
+                                <hr>
+                                <div class="row" ng-if="object.image">
+                                    <section class="col col-md-12">
+                                        <iframe width="100%" height="315" ng-src="{{parseURI(object.image)}}"
+                                                frameborder="0"></iframe>
+                                    </section>
+                                </div>
+                                <hr>
+                            </fieldset>
+                        </div>
+
+                        <section>
+                            <label>სექცია</label>
+                            <select class="form-control"
+                                    ng-model="object.section"
+                                    ng-options="item.name as item.title for item in sections"
+                                    required>
+                                <option value='' selected="selected">- აირჩიეთ სექცია -</option>
+                            </select>
+                        </section>
+                    </div>
+                    <div class="tab-pane nav-active-primary" id="tab-english"
+                         aria-expanded="false">
+                        <section>
+                            <div class="form-group">
+                                <label>დიდი სათაური ინგლისურად: </label>
+                                <input class="form-control rounded" type="text" placeholder="დიდი სათაური ინგლისურად"
+                                       ng-model="object.captions.captionOneEN">
+                            </div>
+                        </section>
+                        <section>
+                            <div class="form-group">
+                                <label>პატარა სათაური ინგლისურად: </label>
+                                <input class="form-control rounded" type="text" placeholder="პატარა სათაური ინგლისურად:"
+                                       ng-model="object.captions.captionTwoEN">
+                            </div>
+                        </section>
+                    </div>
+                    <div class="tab-pane animated fadeIn nav-active-primary text-muted" id="tab-georgian"
+                         aria-expanded="false">
+                        <section>
+                            <div class="form-group">
+                                <label>დიდი სათაური ქართულად: </label>
+                                <input class="form-control rounded" type="text" placeholder="დიდი სათაური ქართულად"
+                                       ng-model="object.captions.captionOneRU">
+                            </div>
+                        </section>
+                        <section>
+                            <div class="form-group">
+                                <label>პატარა სათაური ქართულად: </label>
+                                <input class="form-control rounded" type="text" placeholder="პატარა სათაური ქართულად:"
+                                       ng-model="object.captions.captionTwoRU">
+                            </div>
+                        </section>
+                    </div>
+                    <div class="tab-pane nav-active-primary" id="tab-learn-more"
+                         aria-expanded="false">
+                        <div class="danger alert">
+                            <span class="">მოცემული ფუნქცია გამოიყენება სლაიდერიდან გადამისამართების მიზნით.</span>
+                        </div>
+                        <section>
+                            <div class="form-group">
+                                <label>Your website</label>
+                                <input type="url" class="form-control" placeholder="http://" ng-model="object.href">
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <section class="col col-md-3" style="float: left; text-align: left;">
+                    <label class="md-check">
+                        <input type="checkbox" ng-model="object.active">
+                        <i class="blue"></i>
+                        აქტიური
+                    </label>
+                </section>
+                <section class="col col-md-3" style="float: left; text-align: left;">
+                    <label class="md-check">
+                        <input type="checkbox" ng-model="object.video">
+                        <i class="blue"></i>
+                        ვიდეო
+                    </label>
+                </section>
+                <button type="button" class="btn dark-white p-x-md" data-dismiss="modal">დახურვა</button>
+                <button type="button" class="btn danger p-x-md" ng-disabled="addEditForm.$invalid"
+                        ng-click="save()">შენახვა
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,149 @@
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8" />
+        <title>GDBA</title>
+        <!--<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1"/>-->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
+        <meta property="Copyright" content="Copyright GDBA 2017. All Rights Reserved."/>
+
+        <link rel="stylesheet" href="assets/css/normalize.css" />
+        <link rel="stylesheet" href="assets/css/fonts.css" />
+        <link rel="stylesheet" href="assets/css/layout.css" />
+    </head>
+    <body>
+        <!-- Header -->
+        <header class="header">
+            <div class="container container--full-h">
+                <div class="header-wrap">
+                    <div class="header-logo">
+                        <a href="#" class="logo-wrap">
+                            <span class="logo-wrap__img"></span>
+                            <span class="logo-wrap__txt">gdba</span>
+                        </a>
+                    </div>
+                    <div class="header-navigation">
+                        <ul class="nav-menu">
+                            <li class="nav-menu__item">
+                                <a href="#">home</a>
+                            </li>
+                            <li class="nav-menu__item active">
+                                <a href="#">about</a>
+                            </li>
+                            <li class="nav-menu__item">
+                                <a href="#">news</a>
+                            </li>
+                            <li class="nav-menu__item">
+                                <a href="#">members</a>
+                            </li>
+                            <li class="nav-menu__item">
+                                <a href="#">contact</a>
+                            </li>
+
+                            <li class="nav-menu__item nav-menu__item--right active">
+                                <a href="#">en</a>
+                            </li>
+                            <li class="nav-menu__item nav-menu__item--right">
+                                <a href="#">ge</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="section">
+            <!-- Map -->
+            <div class="map-holder" id="map-mount-node"></div>
+
+            <!-- Form -->
+            <div class="container">
+              <div class="grid grid--equal grid--spaced">
+                <div class="grid__cell">
+                  <div class="contact-area">
+                    <div class="contact-area__title">
+                      contact us via e-mail
+                    </div>
+                    <div class="contact-area__content">
+                      <form class="form">
+                        <div class="form__field">
+                          <input class="form__input" type="text" placeholder="name" name="name" />
+                        </div>
+                        <div class="form__field">
+                          <input class="form__input" type="text" placeholder="email" name="email" />
+                        </div>
+                        <div class="form__field">
+                          <textarea class="form__input" placeholder="message" name="message"></textarea>
+                        </div>
+                        <div class="form__field">
+                          <button class="form__button" type="submit">send</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="grid__cell">
+                  <div class="contact-area">
+                    <div class="contact-area__title contact-area__title--bordered">
+                      contact details
+                    </div>
+                    <div class="contact-area__content">
+                      <ul class="key-value">
+                        <li class="key-value__item">
+                          <label class="key-value__label">Email:</label>
+                          <span class="key-value__data">gdba.partners@mail.com</span>
+                        </li>
+
+                        <li class="key-value__item">
+                          <label class="key-value__label">Phone:</label>
+                          <span class="key-value__data">+995 32 000000</span>
+                        </li>
+
+                        <li class="key-value__item">
+                          <label class="key-value__label">Address:</label>
+                          <span class="key-value__data">Street name 31. Tbilisi, Georgia</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-wrap">
+                    <div class="footer__links">
+                        <ul class="footer__menu">
+                            <li><a href="#">home</a></li>
+                            <li><a href="#">about</a></li>
+                            <li><a href="#">news</a></li>
+                            <li><a href="#">members</a></li>
+                            <li><a href="#">contact</a></li>
+                        </ul>
+                        <p class="footer__text">&copy; 2017 GDBA. All Rights reserved</p>
+                    </div>
+                    <div class="footer__soc">
+                        <a href="#" class="soc-icon soc-icon--fb"></a>
+                        <a href="#" class="soc-icon soc-icon--yt"></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            function initializeMap() {
+                var mapOptions = {
+                    center: new google.maps.LatLng(51.5, -0.12), //ak dasvi magati koordinatebi da kvemot sheni KEY gauwere :) geige?
+                    zoom: 10,
+                    mapTypeId: 'roadmap'
+                };
+
+                var map = new google.maps.Map(document.getElementById('map-mount-node'), mapOptions);
+            }
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU&callback=initializeMap"></script>
+    </body>
+</html>

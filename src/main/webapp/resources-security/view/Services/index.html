@@ -1,0 +1,85 @@
+<div class="padding">
+    <div class="box">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>დასახელება</th>
+                    <th>აღწერა</th>
+                    <th>ფოტო</th>
+                    <th imperio-sortable-by="news.id">სიახლე</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in data">
+                    <td>{{item.id}}</td>
+                    <td>{{item.details.titleRU}}</td>
+                    <td>{{item.details.descriptionRU}}</td>
+                    <td><img ng-src="uploads/{{item.news.imageURL}}" height="60"></td>
+                    <td>{{item.news.details.titleRU}}</td>
+                    <td>
+                        <i class="fa fa-fw fa-pencil" ng-click="showAddEdit(item)"></i>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="showAddEdit" class="modal black-overlay" data-backdrop="false">
+    <div class="modal-dialog modal-lg" ng-form="addEditForm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">სერვისის {{init.action}}</h5>
+            </div>
+            <div class="modal-body p-lg">
+                <form role="form" name="hotelForm">
+                    <fieldset>
+                        <div class="row">
+                            <div class="col col-lg-12">
+                                <section>
+                                    <label>სიახლის მისაბმელად, შეიყვანეთ სიახლის ID</label>
+                                    <input class="form-control" type="text" placeholder="შეიყვანეთ სიახლის ID"
+                                           ng-model="object.news.id">
+                                </section>
+                                <section>
+                                    <label>დასახელება ინგლისურად</label>
+                                    <input class="form-control" type="text" placeholder="დასახელება ინგლისურად"
+                                           ng-model="object.details.titleEN"
+                                           required>
+                                </section>
+                                <section>
+                                    <label>დასახელება ქართულად</label>
+                                    <input class="form-control" type="text" placeholder="დასახელება ქართულად"
+                                           ng-model="object.details.titleRU"
+                                           required>
+                                </section>
+                                <section>
+                                    <label>აღწერა ინგლისურად</label>
+                                    <input class="form-control" type="text" placeholder="დასახელება ინგლისურად"
+                                           ng-model="object.details.descriptionEN"
+                                           required>
+                                </section>
+                                <section>
+                                    <label>აღწერა ქართულად</label>
+                                    <input class="form-control" type="text" placeholder="დასახელება ქართულად"
+                                           ng-model="object.details.descriptionRU"
+                                           required>
+                                </section>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn dark-white p-x-md" data-dismiss="modal">დახურვა</button>
+                <button type="button" class="btn danger p-x-md" ng-disabled="addEditForm.$invalid"
+                        ng-click="save()">შენახვა
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

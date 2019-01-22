@@ -1,0 +1,96 @@
+<div class="padding">
+    <div class="box">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th data-class="expand">
+                        კატეგორიის დასახელება
+                    </th>
+                    <th class="action-buttons-column">
+                        ქმედება
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in data.results">
+                    <td>{{item.titles.titleEN}}</td>
+                    <td>
+                        <i class="fa fa-fw fa-pencil" ng-click="showAddEdit(item)"></i>
+                        <i class="fa fa-fw fa-trash-o" ng-model="item"
+                           ng-popover-confirm="delete({{item.id}})"
+                           data-title="წავშალო ჩანაწერი?">
+                        </i>
+                    </td>
+                </tr>
+                <tr ng-if="!data.results.length" class="text-center">
+                    <td colspan="100" class="warning">ჩანაწერები ვერ მოიძებნა</td>
+                </tr>
+                </tbody>
+                <tfoot class="hide-if-no-paging">
+                <tr>
+                    <td colspan="50" class="text-center">
+                        <imperio-pager></imperio-pager>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <imperio-fab></imperio-fab>
+</div>
+
+
+
+<div id="showAddEdit" class="modal black-overlay" data-backdrop="false">
+    <div class="modal-dialog modal-lg" ng-form="addEditForm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{init.action}}</h5>
+            </div>
+            <div class="modal-body p-lg">
+                <div class="b-b b-primary nav-active-primary">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="" data-toggle="tab"
+                               data-target="#tab-english" aria-expanded="true">English</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="" data-toggle="tab" data-target="#tab-georgian"
+                               aria-expanded="false">ქართული</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-content p-a m-b-md">
+                    <div class="tab-pane nav-active-primary active" id="tab-english"
+                         aria-expanded="true">
+                        <section>
+                            <div class="form-group">
+                                <label>სახელი ინგლისურად: </label>
+                                <input class="form-control rounded" type="text" placeholder="სახელი ინგლისურად"
+                                       ng-model="object.titles.titleEN">
+                            </div>
+                        </section>
+                    </div>
+                    <div class="tab-pane animated fadeIn nav-active-primary text-muted" id="tab-georgian"
+                         aria-expanded="false">
+                        <section>
+                            <div class="form-group">
+                                <label>სახელი ქართული: </label>
+                                <input class="form-control rounded" type="text" placeholder="სახელი ქართული"
+                                       ng-model="object.titles.titleRU">
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn dark-white p-x-md" data-dismiss="modal">დახურვა</button>
+                <button type="button" class="btn danger p-x-md" ng-disabled="addEditForm.$invalid"
+                        ng-click="save()">შენახვა
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,129 @@
+<div class="padding">
+    <div class="col-sm-4" ng-repeat="item in data.results">
+        <div class="box p-a-xs">
+            <div ng-click="showAddEdit(item)" style="cursor:pointer"><img src="/upload/files/{{item.imageURL}}" alt=""
+                                                                          class="img-responsive"></div>
+            <div class="p-a-sm">
+                <div class="text-ellipsis">
+                    სახელი: {{item.person.titleEN}}
+                </div>
+                <div class="text-ellipsis">
+                    პოზიცია:{{item.position.positionEN}}
+                </div>
+                <div class="text-ellipsis">
+                    <div class="pull-right">
+                        <span class="label red" style="cursor:pointer" ng-click="showAddEdit(item)"><i
+                                class="fa fa-pencil"></i></span>
+                        <span class="label red" style="cursor:pointer" ng-click="delete({{item.id}})"><i class="fa fa-trash-o"></i></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <imperio-fab></imperio-fab>
+</div>
+
+
+<div id="showAddEdit" class="modal black-overlay" data-backdrop="false">
+    <div class="modal-dialog modal-lg" ng-form="addEditForm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{init.action}}</h5>
+            </div>
+            <div class="modal-body p-lg">
+                <div class="b-b b-primary nav-active-primary">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="" data-toggle="tab"
+                               data-target="#tab-media" aria-expanded="true">Media</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="" data-toggle="tab"
+                               data-target="#tab-english" aria-expanded="true">English</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="" data-toggle="tab"
+                               data-target="#tab-georgian" aria-expanded="true">ქართული</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-content p-a m-b-md">
+                    <div class="tab-pane nav-active-primary active" id="tab-media"
+                         aria-expanded="true">
+                        <div class="danger alert">
+                            <span class="">რეკომენდირებული სურათის გაფართოება: 1920x1080</span>
+                        </div>
+                        <fieldset ng-if="object.imageURL != null">
+                            <hr>
+                            <div class="row">
+                                <section class="col col-md-12">
+                                    <img checkImage ng-src="/uploads/files/{{object.imageURL}}"
+                                         class="img-responsive img-thumbnail" style="width:204px;height:auto;">
+                                </section>
+                            </div>
+                            <hr>
+                        </fieldset>
+                        <section>
+                            <imperio-file-uploader-input></imperio-file-uploader-input>
+                        </section>
+                    </div>
+                    <div class="tab-pane nav-active-primary" id="tab-english"
+                         aria-expanded="false">
+                        <section>
+                            <div class="form-group">
+                                <label>სრული სახელი ინგლისურად: </label>
+                                <input class="form-control rounded" type="text" placeholder="დიდი სათაური ინგლისურად"
+                                       ng-model="object.person.titleEN">
+                            </div>
+                        </section>
+                        <section>
+                            <div class="form-group">
+                                <label>პოზიცია ინგლისურად: </label>
+                                <input class="form-control rounded" type="text" placeholder="პატარა სათაური ინგლისურად:"
+                                       ng-model="object.position.positionEN">
+                            </div>
+                        </section>
+                        <section>
+                            <div class="form-group">
+                                <label>აღწერა ინგლისურად: </label>
+                                <textarea class="form-control" style="height:250px"
+                                          ng-model="object.person.descriptionEN" placeholder="აღწერა ინგლისურად" required></textarea>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="tab-pane animated fadeIn nav-active-primary text-muted" id="tab-georgian"
+                         aria-expanded="false">
+                        <section>
+                            <div class="form-group">
+                                <label>სრული სახელი ქართულად: </label>
+                                <input class="form-control rounded" type="text" placeholder="სრული სახელი ქართულად"
+                                       ng-model="object.person.titleRU">
+                            </div>
+                        </section>
+                        <section>
+                            <div class="form-group">
+                                <label>პოზიცია ქართულად: </label>
+                                <input class="form-control rounded" type="text" placeholder="პოზიცია ქართულად"
+                                       ng-model="object.position.positionRU">
+                            </div>
+                        </section>
+                        <section>
+                            <div class="form-group">
+                                <label>აღწერა ქართულად: </label>
+                                <textarea class="form-control" style="height:250px"
+                                          ng-model="object.person.descriptionRU" placeholder="აღწერა ქართულად" required></textarea>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn dark-white p-x-md" data-dismiss="modal">დახურვა</button>
+                <button type="button" class="btn danger p-x-md" ng-disabled="addEditForm.$invalid"
+                        ng-click="save()">შენახვა
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
